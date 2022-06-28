@@ -1,9 +1,13 @@
 import React, { useState, useRef, Fragment } from "react";
 import classes from "./BasicForm.module.css";
 import { FloatingLabel, Form, Button, Figure } from "react-bootstrap";
+import { useDispatch, useSelector }  from 'react-redux';
 
 
 function BasicForm(props) {
+  const usersData = useSelector((state)=> state.users.users)
+  const dataFetched = useSelector((state)=>state.users.dataFetched);
+
   const [isSignUp, setIsSignUp] = useState(false);
   const [signUpLogin, setSignUpLogin] = useState(true);
   const usernameRef = useRef();
@@ -46,7 +50,20 @@ function BasicForm(props) {
     setIsSignUp(false);
     setSignUpLogin(false);
     props.handleModalOverlay(details);
-    props.sendUsersData(details);
+    if(dataFetched){
+      const isUserNamePresent = usersData.some((user)=>{
+        return (
+          user.username == enternedUsername
+        )
+      })
+      console.log('finding user name in database '+isUserNamePresent)
+      if(!isUserNamePresent){
+        props.sendUsersData(details);
+
+      }
+    }
+    
+    
   }
 
 
