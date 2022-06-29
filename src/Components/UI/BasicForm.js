@@ -16,6 +16,7 @@ function BasicForm(props) {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLogIn, setIsLogIn] = useState(false);
   const [signUpLogin, setSignUpLogin] = useState(true);
+  
   const usernameRef = useRef();
   const passwordRef = useRef();
   const describeRef = useRef();

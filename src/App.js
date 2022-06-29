@@ -6,6 +6,7 @@ import { Fragment, useState, useEffect } from "react";
 import Auth from "./Components/Auth";
 import { fetchUsersData } from "./Components/store/auth-actions";
 import { useDispatch, useSelector }  from 'react-redux';
+import Chat from "./Components/Chats/Chat";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,7 +45,8 @@ const basicForm  = (<BasicForm sendUsersData={addUsersData} loading={loading} />
       <Header />
       {loading && <h1>Loading...</h1>}
       {/* <Auth signUpDetails={details}  /> */}
-      {!isUserNamePresent && !isPasswordMatched && basicForm}
+      {/* {!isUserNamePresent && !isPasswordMatched && basicForm} */}
+      <Chat />
     </Fragment>
   );
 }
