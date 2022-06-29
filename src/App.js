@@ -9,23 +9,15 @@ import { useDispatch, useSelector }  from 'react-redux';
 
 function App() {
   const dispatch = useDispatch();
-  // const usersData = useSelector((state)=> state.users.users)
-  // const dataFetched = useSelector((state)=>state.users.dataFetched);
-  // console.log(dataFetched)
-  // console.log(usersData);
-  const [modalOverlay, setModalOverlay] = useState(true);
+  const isUserNamePresent = useSelector((state)=> state.users.isUsernamePresent)
+  const isPasswordMatched = useSelector((state)=> state.users.isPasswordMatched)
   const [loading, setLoading] = useState(false);
-  const handleModalOverlay = (signUpDetails) => {
-    setModalOverlay(false);
-    // console.log(signUpDetails)
-    // setDetails(signUpDetails);
 
-  };
 
   useEffect(() => {
+    console.log("users fetched")
     dispatch(fetchUsersData());
-  
-  }, [])
+  }, [dispatch, loading])
   
 
 
@@ -44,12 +36,15 @@ function App() {
     
 }
 
+const basicForm  = (<BasicForm sendUsersData={addUsersData} loading={loading} />)
+
+
   return (
     <Fragment>
-      <Header modalOverlay={modalOverlay} />
+      <Header />
       {loading && <h1>Loading...</h1>}
-      <BasicForm handleModalOverlay={handleModalOverlay} sendUsersData={addUsersData} />
       {/* <Auth signUpDetails={details}  /> */}
+      {!isUserNamePresent && !isPasswordMatched && basicForm}
     </Fragment>
   );
 }

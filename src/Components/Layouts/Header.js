@@ -2,10 +2,13 @@ import React from 'react'
 import { Navbar, Nav, Container, Figure  } from 'react-bootstrap';
 import classes from './Header.module.css';
 import logo from  "./smallLogo.png";
+import { useSelector } from 'react-redux';
 
 const Header = (props) => {
+  const isUserNamePresent = useSelector((state)=> state.users.isUsernamePresent)
+  const isPasswordMatched = useSelector((state)=> state.users.isPasswordMatched)
   return (
-<Navbar className={`${classes.header} ${props.modalOverlay ? classes.modalOverlay : ""}` } collapseOnSelect expand="lg" bg="dark" variant="dark">
+<Navbar className={`${classes.header} ${!isUserNamePresent && !isPasswordMatched  ? classes.modalOverlay : ""}` } collapseOnSelect expand="lg" bg="dark" variant="dark">
   <Container>
   
   <Navbar.Brand href="/" style={{marginBottom: '-16px'}}>

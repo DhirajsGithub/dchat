@@ -4,6 +4,7 @@ const initialState = {
     users : [{'name': 'shit'}],
     isUsernamePresent : false,
     dataFetched : false,
+    isPasswordMatched: false,
 
 }
 
@@ -15,6 +16,7 @@ const userSlice = createSlice({
             state.users = actions.payload.users;
             state.isUsernamePresent = actions.payload.isUsernamePresent;
             state.dataFetched = actions.payload.dataFetched;
+            state.isPasswordMatched = actions.payload.isPasswordMatched;
         }
     }
 })

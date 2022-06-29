@@ -32,6 +32,7 @@ export const fetchUsersData = ()=>{
                     users : usersArray || [],
                     isUsernamePresent : false,
                     dataFetched : dataFetching,
+                    isPasswordMatched : false,
                 })
             )
         } catch (error) {
