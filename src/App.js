@@ -46,9 +46,8 @@ const basicForm  = (<BasicForm sendUsersData={addUsersData} loading={loading} />
     <Fragment>
       <Header />
       {loading && <h1>Loading...</h1>}
-      {/* <Auth signUpDetails={details}  /> */}
-      {!isUserNamePresent && !isPasswordMatched && basicForm}
-      {/* <Chat /> */}
+      {/* {!isUserNamePresent && !isPasswordMatched && basicForm} */}
+      <Chat />
     </Fragment>
   );
 }

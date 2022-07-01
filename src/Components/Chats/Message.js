@@ -1,6 +1,6 @@
 import React from "react";
 
-const Message = () => {
+const Message = (props) => {
   return (
     <li>
       <div className="row comments mb-2">
@@ -13,12 +13,12 @@ const Message = () => {
         </div>
         <div className="col-md-9 col-sm-9 col-9 comment rounded mb-2">
           <h4 className="m-0">
-            <a href="#">Jacks David</a>
+            <a href="#">{props.username}</a>
           </h4>
-          <time className="text-white ml-3">1 hours ago</time>
+          <time className="text-white ml-3">{props.time}</time>
          
-          <p className="mb-0 text-white">
-            Thank you for visiting all the way from New York.
+          <p className="mb-0 text-white message">
+            {props.message}
           </p>
         </div>
       </div>
