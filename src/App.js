@@ -12,6 +12,8 @@ function App() {
   const dispatch = useDispatch();
   const isUserNamePresent = useSelector((state)=> state.users.isUsernamePresent)
   const isPasswordMatched = useSelector((state)=> state.users.isPasswordMatched)
+  const userLogin = useSelector((state)=> state.users.user);
+  console.log(userLogin)
   const [loading, setLoading] = useState(false);
 
 
@@ -45,8 +47,8 @@ const basicForm  = (<BasicForm sendUsersData={addUsersData} loading={loading} />
       <Header />
       {loading && <h1>Loading...</h1>}
       {/* <Auth signUpDetails={details}  /> */}
-      {/* {!isUserNamePresent && !isPasswordMatched && basicForm} */}
-      <Chat />
+      {!isUserNamePresent && !isPasswordMatched && basicForm}
+      {/* <Chat /> */}
     </Fragment>
   );
 }

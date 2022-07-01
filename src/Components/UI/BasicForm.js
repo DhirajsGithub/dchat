@@ -15,7 +15,7 @@ function BasicForm(props) {
 
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLogIn, setIsLogIn] = useState(false);
-  const [signUpLogin, setSignUpLogin] = useState(true);
+  const [loginUser, setLoginUsesr] = useState([]);
   
   const usernameRef = useRef();
   const passwordRef = useRef();
@@ -42,31 +42,35 @@ function BasicForm(props) {
 
     // checkign the login credentials
     if (dataFetched) {
-      const isUserNamePresent = usersData.some((user) => {
+      const isUserNamePresent = usersData.filter((user) => {
         return user.username == enternedUsername;
       });
       enternedpassword = md5(enternedpassword);
-      const isPasswordPresent = usersData.some((user) => {
+      const isPasswordPresent = usersData.filter((user) => {
         return user.password == enternedpassword;
       });
-      if (isUserNamePresent && isPasswordPresent) {
-        console.log("both present")
+     
+      if (isUserNamePresent[0]?.username && isPasswordPresent[0]?.password) {
+        console.log(isUserNamePresent)
+        
         dispatch(
           usersActions.getUsers({
             users: usersData || [],
             isUsernamePresent: true,
             dataFetched: dataFetched,
             isPasswordMatched: true,
+            user : isUserNamePresent,
           })
         );
       }
+      console.log(loginUser)
       console.log("finding user name in database " + isUserNamePresent);
       console.log("finding password in database " + isPasswordPresent);
     }
-    if (formIsValid) {
-      console.log("shit");
-      setSignUpLogin(false);
-    }
+    // if (formIsValid) {
+    //   console.log("shit");
+    //   setSignUpLogin(false);
+    // }
   };
   const handleSignUp = () => {
     setIsSignUp(true);
@@ -120,6 +124,7 @@ function BasicForm(props) {
       password: md5(enternedpassword),
       describe: enternedDescribe,
       profile: null,
+      extra : 'shite'
     };
     if (dataFetched) {
       const isUserNamePresent = usersData.some((user) => {
@@ -135,7 +140,6 @@ function BasicForm(props) {
         //   console.log("shit")
         // }
         setIsSignUp(false);
-        setSignUpLogin(false);
       } else {
         alert("The username is already used !!!!");
       }

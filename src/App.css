@@ -105,6 +105,16 @@ body{
       max-width: 100%;
     }
   }
+  .input-send input{
+    font-size: 2rem;
+  }
+  .input-send button{
+    font-size: 2rem;
+  }
+  .chat-messages{
+    max-height: 60vh;
+    overflow: scroll ;
+  }
   /* @media (min-width: 320px) and (max-width: 480px){
   .comments .comment h4 {
   font-size: 12px;
