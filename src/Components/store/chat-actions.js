@@ -39,7 +39,7 @@ export const fetchChatsData = () => {
           id: key,
           username: chatsData[key].username,
           profile: chatsData[key].profile,
-          date: chatsData[key].data,
+          date: chatsData[key].date,
           message: chatsData[key].message,
         });
       }

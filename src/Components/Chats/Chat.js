@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Message from "./Message";
 import { useSelector, useDispatch } from "react-redux";
 import { sendChatsData } from "../store/chat-actions";
@@ -50,10 +50,15 @@ const Chat = (props) => {
     dispatch(fetchChatsData());
   },[])
   useEffect(()=>{
+    
+    scrollDown.current.scrollIntoView({behavior: 'smooth'})
     socket.on("dchat", (payload)=>{
       setChatArray([...chatArray, payload]);
     }, [])
   });
+
+  const scrollDown = useRef();
+
 
   return (
     <div className="container chat-main">
@@ -75,13 +80,14 @@ const Chat = (props) => {
                 <Message key={chat.id} username={chat.username} time={chat.date} message={chat.message }/>
               )
             })}
+            <div ref={scrollDown}></div>
            
           </ul>
           </div>
           <hr />
           <div className="input-send comment-box-main p-3 mt-3 rounded mb-3">
           <form onSubmit={handleOnSubmit} action="">
-            <div className="col-md-9 col-sm-9 col-9 pr-0 mr-3 comment-box">
+            <div id='input' className="col-md-9 col-sm-9 col-9 pr-0 mr-3 comment-box">
               <input
                 type="text"
                 className="form-control"

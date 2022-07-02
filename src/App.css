@@ -39,6 +39,7 @@ body{
   .comments .comment {
   padding: 5px 10px;
   background: #00AF90;
+  border-radius: 10px;
   }
   .comments .comment p{
     font-size: 1.7rem !important;
@@ -47,15 +48,17 @@ body{
   opacity: 1;
   }
   .comments .user-img img {
-  width: 50px;
-  height: 50px;
+  width: 5rem;
+  height: 5rem;
   }
+  
   .comments .comment h4 {
   display: inline-block;
   font-size: 1.5rem;
   }
   .comments .comment h4 a {
   color: #404040;
+  font-size: 1.6rem;
   text-decoration: none;
   }
   .comments .comment .icon-rocknroll {
@@ -70,10 +73,11 @@ body{
   opacity: 1;
   } */
   .comments .comment time, .comments .comment .like-count {
-  font-weight: 300;
+  font-weight:500;
+  font-size: 1.3rem;
   }
   .comments .comment p {
-  font-size: 13px;
+  font-size: 2rem !important;
   }
   .comments .comment p .reply {
   color: #BFBFA8;
@@ -103,14 +107,38 @@ body{
   @media only screen and (max-width: 745px) {
     .chat-main{
       max-width: 95%;
+      
     }
     .comments{
       max-width: 100%;
     }
+    .input-send input{
+      margin-right: 2px !important;
+      font-size: 2rem;
+      margin-left: -1rem;
+    }
+    .input-send button{
+      font-size: 2rem;
+      margin-left: -1rem;
+    }
+    /* .comments .user-img img{
+      width: 4rem ;
+      height: 4rem ;
+      padding: 0 ;
+    }
+    .comments .user-img {
+      width: 4rem ;
+      height: 4rem ;
+      padding: 0;
+    } */
+    
+   
   }
+
   .input-send input{
     margin-right: 2px !important;
     font-size: 2rem;
+
   }
   .input-send button{
     font-size: 2rem;
