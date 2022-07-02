@@ -9,13 +9,13 @@ import { io, Socket } from "socket.io-client";
 const socket = io.connect("http://localhost:5500");
 
 const Chat = (props) => {
-  console.log(props.userLogin)
+
   const dataFetched = useSelector((state)=> state.dataFetched);
 
   const sStatus = useSelector((state)=> state.chats.notification);
-  console.log(sStatus)
+
   const chatsData = useSelector((state)=> state.chats.chats);
-  console.log("chats Data is", chatsData);
+
   const dispatch = useDispatch();
   const[msg, setMsg] = useState('');
   const [chatArray, setChatArray] = useState([]);
@@ -32,7 +32,7 @@ const Chat = (props) => {
     return myDate;
   }
   
-  console.log(calDate())
+
 
   const handleOnSubmit = (event)=>{
     event.preventDefault();

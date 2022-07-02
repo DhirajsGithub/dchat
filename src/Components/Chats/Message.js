@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 
 const Message = (props) => {
   const user = useSelector((state) => state.users.user[0]);
-  const itMe = () => {
+  const itIsMe = () => {
     return user.username === props.username;
   };
-  console.log(props.time[0]);
+
   const profileImg = (
     <div className="col-md-2 col-sm-2 col-3 text-center user-img">
       {" "}
@@ -19,18 +19,18 @@ const Message = (props) => {
   );
   return (
     <li >
-      <div style={{display:'flex', justifyContent:user.username === props.username ?'flex-end':''}} className="comments mb-2">
-        {!(user.username === props.username) && profileImg}
+      <div style={{display:'flex', justifyContent:itIsMe() ?'flex-end':''}} className="comments mb-2">
+        {!itIsMe() && profileImg}
 
         <div
           style={{
             background:
-              user.username === props.username ? "#00AF90" : "#A060FF",
+            itIsMe()? "#00AF90" : "#A060FF",
           }}
           className="col-md-9 col-sm-9 col-9 comment mb-2"
         >
         <p className="mb-0 text-white message">{props.message}</p>
-        <div style={{textAlign: user.username === props.username ? 'end':''}}>
+        <div style={{textAlign: itIsMe()? 'end':''}}>
           <h4 className="m-0">
             <a href="#">{props.username}</a>
           </h4>
@@ -39,7 +39,7 @@ const Message = (props) => {
           </time>
           </div>
         </div>
-        {(user.username === props.username) && profileImg}
+        {(itIsMe()) && profileImg}
       </div>
     </li>
   );

@@ -6,7 +6,13 @@
     font-size: 4rem;
     font-family: 'Architects Daughter', cursive;
 } 
-
+.heading [title="Profile"]{
+    color: aquamarine;
+    font-size: 4rem !important;
+}
+.dropdown{
+    font-size: 3rem !important;
+}
 .navItem{
     margin-left: 2rem;
 }

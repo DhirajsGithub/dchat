@@ -144,7 +144,7 @@ body{
     font-size: 2rem;
   }
   .chat-messages{
-    max-height: 60vh;
+    max-height: 65vh;
     overflow: scroll ;
   }
   /* @media (min-width: 320px) and (max-width: 480px){

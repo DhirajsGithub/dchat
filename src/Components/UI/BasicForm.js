@@ -3,6 +3,7 @@ import classes from "./BasicForm.module.css";
 import { FloatingLabel, Form, Button, Figure } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { usersActions } from "../store/auth-slice";
+
 const md5 = require('md5')
 
 function BasicForm(props) {
@@ -16,6 +17,7 @@ function BasicForm(props) {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLogIn, setIsLogIn] = useState(false);
   const [loginUser, setLoginUsesr] = useState([]);
+  const [profileImg, setProfileImg] = useState('');
   
   const usernameRef = useRef();
   const passwordRef = useRef();
@@ -51,7 +53,7 @@ function BasicForm(props) {
       });
      
       if (isUserNamePresent[0]?.username && isPasswordPresent[0]?.password) {
-        console.log(isUserNamePresent)
+
         
         dispatch(
           usersActions.getUsers({
@@ -63,9 +65,7 @@ function BasicForm(props) {
           })
         );
       }
-      console.log(loginUser)
-      console.log("finding user name in database " + isUserNamePresent);
-      console.log("finding password in database " + isPasswordPresent);
+    
     }
     // if (formIsValid) {
     //   console.log("shit");
@@ -149,6 +149,7 @@ function BasicForm(props) {
   return (
     <React.Fragment>
 
+    {/* <Storage /> */}
    
     <Form onSubmit={handleFormSubmit} className={classes.form}>
     {isLogIn && !isUserNamePresent && !isPasswordMatched && <p style={{color: 'red', fontSize:'1.5rem'}} >Username and Password doesn't match !</p>}
