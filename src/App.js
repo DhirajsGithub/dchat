@@ -1,9 +1,8 @@
-import logo from "./logo.svg";
+
 import "./App.css";
 import Header from "./Components/Layouts/Header";
 import BasicForm from "./Components/UI/BasicForm";
 import { Fragment, useState, useEffect } from "react";
-import Auth from "./Components/Auth";
 import { fetchUsersData } from "./Components/store/auth-actions";
 import { useDispatch, useSelector }  from 'react-redux';
 import Chat from "./Components/Chats/Chat";
@@ -46,8 +45,8 @@ const basicForm  = (<BasicForm sendUsersData={addUsersData} loading={loading} />
     <Fragment>
       <Header />
       {loading && <h1>Loading...</h1>}
-      {/* {!isUserNamePresent && !isPasswordMatched && basicForm} */}
-      <Chat />
+      {!isUserNamePresent && !isPasswordMatched && basicForm}
+     { isUserNamePresent && isPasswordMatched && <Chat  userLogin={userLogin} />}
     </Fragment>
   );
 }

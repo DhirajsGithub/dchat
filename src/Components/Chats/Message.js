@@ -1,6 +1,7 @@
 import React from "react";
 
 const Message = (props) => {
+  console.log(props.time)
   return (
     <li>
       <div className="row comments mb-2">

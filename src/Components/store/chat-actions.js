@@ -1,11 +1,11 @@
 import { chatsActions } from "./chat-slice";
 
 export const fetchChatsData = () => {
-  console.log("fetchChatsData called");
+
   return async (dispatch) => {
     dispatch(
       chatsActions.showNotification({
-        send: "",
+        // send: "",
         receive: "Receiving...",
       })
     );
@@ -24,32 +24,37 @@ export const fetchChatsData = () => {
     };
 
     try {
+      
       const chatsData = await fetchData();
       dispatch(
         chatsActions.showNotification({
-          send: "",
+          // send: "",
           receive: "Received",
         })
       );
-      let chatsArray = [];
+
+      let chatsArray = []
       for (let key in chatsData) {
         chatsArray.push({
           id: key,
-          username: chatsArray[key].username,
-          profile: chatsArray[key].profile,
-          date: chatsArray[key].data,
-          message: chatsArray[key].message,
+          username: chatsData[key].username,
+          profile: chatsData[key].profile,
+          date: chatsData[key].data,
+          message: chatsData[key].message,
         });
       }
+     
+   
       dispatch(
         chatsActions.addChatsData({
           chats: chatsArray,
         })
       );
     } catch (error) {
+
       dispatch(
         chatsActions.showNotification({
-          send: "",
+          // send: "",
           receive: "Error receiving Messages",
         })
       );
@@ -58,13 +63,13 @@ export const fetchChatsData = () => {
 };
 
 export const sendChatsData = (chatsData) => {
-  console.log("sendChatsDataCalled");
+
   return async (dispatch) => {
     // dipatch initail action of sending msg
     dispatch(
       chatsActions.showNotification({
         send: "Sending...",
-        receive: "",
+        // receive: "",
       })
     );
     const sendRequest = async () => {
@@ -87,14 +92,14 @@ export const sendChatsData = (chatsData) => {
       dispatch(
         chatsActions.showNotification({
           send: "Send",
-          receive: "",
+          // receive: "",
         })
       );
     } catch (error) {
       dispatch(
         chatsActions.showNotification({
           send: "Error Sending msg !!!",
-          receive: "",
+          // receive: "",
         })
       );
     }

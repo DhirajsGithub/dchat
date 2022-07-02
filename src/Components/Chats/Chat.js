@@ -8,11 +8,14 @@ import { fetchChatsData } from "../store/chat-actions";
 import { io, Socket } from "socket.io-client";
 const socket = io.connect("http://localhost:5500");
 
-const Chat = () => {
-  const sStatus = useSelector((state)=> state.chats.notification.send);
+const Chat = (props) => {
+  console.log(props.userLogin)
+  const dataFetched = useSelector((state)=> state.dataFetched);
+
+  const sStatus = useSelector((state)=> state.chats.notification);
   console.log(sStatus)
-  const userData = useSelector((state)=> state.chats.chats);
-  console.log("user Data is", userData);
+  const chatsData = useSelector((state)=> state.chats.chats);
+  console.log("chats Data is", chatsData);
   const dispatch = useDispatch();
   const[msg, setMsg] = useState('');
   const [chatArray, setChatArray] = useState([]);
@@ -21,26 +24,36 @@ const Chat = () => {
     setMsg(event.target.value);
   }
 
+  const calDate = ()=>{
+    let date = new Date();
+    let myDate = [];
+    myDate.push(date.toLocaleTimeString());
+    myDate.push(date.toLocaleDateString());
+    return myDate;
+  }
+  
+  console.log(calDate())
+
   const handleOnSubmit = (event)=>{
     event.preventDefault();
+   
     dispatch(sendChatsData({
       message : msg,
-      username: 'dhiraj'
+      username: props.userLogin[0].username,
+      date : calDate(),
     }))
     // passing payload can be anything img to files to text
-    socket.emit("dchat", {message:msg, username: 'dhiraj'});
+    socket.emit("dchat", {message:msg, username: props.userLogin[0].username, date : calDate(),});
     setMsg('');
   }
   useEffect(()=>{
     dispatch(fetchChatsData());
+  },[])
+  useEffect(()=>{
     socket.on("dchat", (payload)=>{
       setChatArray([...chatArray, payload]);
     }, [])
   });
-  console.log(chatArray);
-
-  let data = new Date();
-  console.log(data.getSeconds());
 
   return (
     <div className="container chat-main">
@@ -51,18 +64,18 @@ const Chat = () => {
 
        
           <ul className="p-0">
-            <Message username="dhiraj" time="1 hour ago" message="very first message lorem wkfjskdl jfk klsdjf ssakdfj ksdjfk jsadkfj" />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
+          {chatsData.map((chat)=>{
+         
+              return (
+                <Message key={chat.id} username={chat.username} time={chat.date} message={chat.message }/>
+              )
+            })}
+            {chatArray.map((chat)=>{
+              return (
+                <Message key={chat.id} username={chat.username} time={chat.date} message={chat.message }/>
+              )
+            })}
+           
           </ul>
           </div>
           <hr />
@@ -78,7 +91,7 @@ const Chat = () => {
               />
             </div>
             <div className="col-md-3 col-sm-2 col-2 pl-0 text-center send-btn">
-              <button type="submit" className="btn btn-info">Send <i className="fa-solid fa-paper-plane"></i></button>
+              <button disabled={sStatus.send === "Sending..." || sStatus.receive === "Receiving..."} type="submit" className="btn btn-info">{sStatus.send === "Sending..." ? sStatus.send : <span> Send <i className="fa-solid fa-paper-plane"></i></span> }</button>
             </div>
             </form>
           </div>
