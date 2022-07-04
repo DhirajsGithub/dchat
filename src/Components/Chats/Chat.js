@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { sendChatsData } from "../store/chat-actions";
 import { fetchChatsData } from "../store/chat-actions";
 
+
 // npm install socket.io-client
 import { io, Socket } from "socket.io-client";
 const socket = io.connect("http://localhost:5500");
@@ -37,6 +38,7 @@ const Chat = (props) => {
   const handleOnSubmit = (event)=>{
     event.preventDefault();
    
+
     dispatch(sendChatsData({
       message : msg,
       username: props.userLogin[0].username,

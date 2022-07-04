@@ -4,6 +4,7 @@ import { FloatingLabel, Form, Button, Figure } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { usersActions } from "../store/auth-slice";
 
+
 const md5 = require('md5')
 
 function BasicForm(props) {
@@ -123,8 +124,7 @@ function BasicForm(props) {
       username: enternedUsername,
       password: md5(enternedpassword),
       describe: enternedDescribe,
-      profile: null,
-      extra : 'shite'
+      profile: '',
     };
     if (dataFetched) {
       const isUserNamePresent = usersData.some((user) => {
@@ -208,7 +208,7 @@ function BasicForm(props) {
         {!isSignUp && (
           <React.Fragment>
             <Button
-              disabled={!changePassword || !changeUsername}
+              disabled={!changePassword || !changeUsername || props.loading || !dataFetched }
               style={{
                 backgroundColor: "#00e4e3",
                 border: "2px solid #00e4e3",
@@ -229,6 +229,7 @@ function BasicForm(props) {
               type="button"
               onClick={handleSignUp}
               variant="info"
+              disabled={!dataFetched}
             >
               SignUp
             </Button>
@@ -237,7 +238,7 @@ function BasicForm(props) {
         {isSignUp && (
           <Button
             disabled={
-              !isSignUp || !changePassword || !changeUsername || !changeDescribe
+              !isSignUp || !changePassword || !changeUsername || !changeDescribe 
             }
             style={{ backgroundColor: "#a060ff", border: "2px solid #a060ff" }}
             type="button"

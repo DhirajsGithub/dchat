@@ -40,7 +40,7 @@ const Header = (props) => {
             <Nav.Link
               onClick={() => {
                 props.handleNavItems("home")
-                console.log("home")
+
               }}
               className={classes.navItem}
               href="#Home"
@@ -50,7 +50,7 @@ const Header = (props) => {
             <Nav.Link
               onClick={() => {
                 props.handleNavItems("people")
-                console.log("people")
+               
               }}
               className={classes.navItem}
               href="#people"

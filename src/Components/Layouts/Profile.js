@@ -6,35 +6,39 @@ import { usersActions } from "../store/auth-slice";
 import { storage } from "../storage/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
+
 const Profile = (props) => {
-    const dispatch = useDispatch();
-    const fetchUser = useSelector((state)=> state.users.user)
-    console.log("fetchUserIs ", fetchUser)
-  const [imageUrl, setImageUrl] = useState('')
+  const AuthSlice = useSelector((state) => state.users);
+  console.log(AuthSlice);
+  const dispatch = useDispatch();
+  const fetchUser = useSelector((state) => state.users.user);
+  console.log("fetchUserIs ", fetchUser);
+  const [imageUrl, setImageUrl] = useState("");
   const user = useSelector((state) => state.users.user[0]);
   const itIsMe = () => {
     return user.username === props.userLogin[0].username;
   };
   const changeProfilePic = (event) => {
-    const file = event.target.files[0]
-    console.log(file)
+    const file = event.target.files[0];
+    console.log(file);
 
     const imageRef = ref(storage, `/files/${file.name}`);
-    uploadBytes(imageRef, file).then(()=>{
-        getDownloadURL(imageRef).then((url)=>{
+    uploadBytes(imageRef, file)
+      .then(() => {
+        getDownloadURL(imageRef)
+          .then((url) => {
             setImageUrl(url);
-            
-        })
-        .catch((err)=>{
-            console.log(err.message, 'error')
-        })
-        setImageUrl(null)
-    })
-    .catch((err)=>{
-        console.log(err.message)
-    })
-
+          })
+          .catch((err) => {
+            console.log(err.message, "error");
+          });
+        setImageUrl(null);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
+  console.log(imageUrl);
 
   return (
     <div className="container mt-5">
@@ -51,20 +55,29 @@ const Profile = (props) => {
             </div>
 
             <div className="text-center mt-3">
-            
-              {itIsMe() ? <form style={{
-                 textAlign:'center',
-                  fontSize: "1.3rem",
-                }} action="">
-                <input onChange={itIsMe() ? changeProfilePic : ''} id="files" style={{textAlign:'center'}} title='f' type="file"/>
-            
-              </form>: <span>Profile</span>}
+              {itIsMe() ? (
+                <form
+                  style={{
+                    textAlign: "center",
+                    fontSize: "1.3rem",
+                  }}
+                  action=""
+                >
+                  <input
+                    onChange={itIsMe() ? changeProfilePic : ""}
+                    id="files"
+                    style={{ textAlign: "center" }}
+                    title="f"
+                    type="file"
+                  />
+                </form>
+              ) : (
+                <span>Profile</span>
+              )}
               <h1 className="mt-2 mb-0">{user.username}</h1>
 
               <div className="px-4 mt-1">
-                <p className={`classes.fonts`}>
-                  {user.describe}.{" "}
-                </p>
+                <p className={`classes.fonts`}>{user.describe}. </p>
               </div>
 
               <ul className={classes["social-list"]}>

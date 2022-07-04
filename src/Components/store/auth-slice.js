@@ -6,6 +6,7 @@ const initialState = {
     dataFetched : false,
     isPasswordMatched: false,
     user: [],
+    profile : '',
 
 
 }
@@ -20,7 +21,8 @@ const userSlice = createSlice({
             state.dataFetched = actions.payload.dataFetched;
             state.isPasswordMatched = actions.payload.isPasswordMatched;
             state.user = actions.payload.user;
-        }
+        },
+     
     }
 })
 
