@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import classes from "./Profile.module.css";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -6,19 +7,58 @@ import { usersActions } from "../store/auth-slice";
 import { storage } from "../storage/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
+import { Firebasedatabase } from "../storage/firebase";
+import { update, set, get, child } from "firebase/database";
+
+const db = Firebasedatabase;
+console.log(db);
 
 const Profile = (props) => {
+  // const userCollectionRef = collection(Firebasedatabase, "usersData");
+  // useEffect(()=>{
+  //   const getUser = async ()=>{
+  //     const data = await getDocs(userCollectionRef);
+  //     console.log("firebase data")
+  //     console.log(data)
+  //   }
+  //   getUser();
+  // },[])
+
   const AuthSlice = useSelector((state) => state.users);
   console.log(AuthSlice);
   const dispatch = useDispatch();
   const fetchUser = useSelector((state) => state.users.user);
-  console.log("fetchUserIs ", fetchUser);
+  console.log("fetchUserIs ", fetchUser[0].id);
+
+  // const updateUserProfile = async () => {
+  //   const response = await fetch(
+  //     "https://dchat-74b80-default-rtdb.firebaseio.com/usersData/-N5ytpViFQsKFnc6x70x",
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "Access-Control-Allow-Origin": "*",
+  //         "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+  //         "Access-Control-Allow-Headers":
+  //         "Content-Type, Authorization X-Requested-With",
+  //       },
+  //       method: "PATCH",
+  //       body: JSON.stringify({
+  //         extra: "foo",
+  //       }),
+  //     }
+  //   );
+  //   if (!response.ok) {
+  //     console.log("unable to update data");
+  //     throw new Error("unable to update data");
+  //   }
+  // };
   const [imageUrl, setImageUrl] = useState("");
   const user = useSelector((state) => state.users.user[0]);
   const itIsMe = () => {
     return user.username === props.userLogin[0].username;
   };
   const changeProfilePic = (event) => {
+    // updateUserProfile();
     const file = event.target.files[0];
     console.log(file);
 

@@ -1,19 +1,24 @@
 
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
+import { getDatabase } from "firebase/database"
 
+// stored to 210030010@iitdh.ac.in account
 const firebaseConfig = {
-    apiKey: "AIzaSyBT6GKAnMyvRFaic0w2JzqCirZj3upNu9k",
-    authDomain: "dchat-74b80.firebaseapp.com",
-    databaseURL: "https://dchat-74b80-default-rtdb.firebaseio.com",
-    projectId: "dchat-74b80",
-    storageBucket: "dchat-74b80.appspot.com",
-    messagingSenderId: "836182274999",
-    appId: "1:836182274999:web:80b4d0d05ac4fe39c56e32"
-  };
+  apiKey: "AIzaSyBd-eN_gO-zmL0ap0LNNxdrifBaNhC0LpQ",
+  authDomain: "dchat-storage-profile-image.firebaseapp.com",
+  projectId: "dchat-storage-profile-image",
+  storageBucket: "dchat-storage-profile-image.appspot.com",
+  messagingSenderId: "1088386757906",
+  appId: "1:1088386757906:web:c6b4796a18bca7def0efcb"
+};
 
+export default firebaseConfig;
 const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app)
+export const Firebasedatabase = getDatabase(app);
+
+
 
 
 /*
