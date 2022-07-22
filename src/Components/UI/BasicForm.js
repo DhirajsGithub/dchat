@@ -8,11 +8,13 @@ import { usersActions } from "../store/auth-slice";
 const md5 = require('md5')
 
 function BasicForm(props) {
-  const isUserNamePresent = useSelector((state)=> state.users.isUsernamePresent)
-  const isPasswordMatched = useSelector((state)=> state.users.isPasswordMatched)
+  // const isUserNamePresent = useSelector((state)=> state.users.isUsernamePresent)
+  // const isPasswordMatched = useSelector((state)=> state.users.isPasswordMatched)
+  const isUserLoggedIn = useSelector((state) => state.users.user)
 
   const dispatch = useDispatch();
   const usersData = useSelector((state) => state.users.users);
+  console.log(usersData)
   const dataFetched = useSelector((state) => state.users.dataFetched);
 
   const [isSignUp, setIsSignUp] = useState(false);
@@ -33,11 +35,14 @@ function BasicForm(props) {
 
   let formIsValid = false;
 
+
+  ///////////////// Login handler ///////////////////////////////
   const handleFormSubmit = (event) => {
     event.preventDefault();
     setIsLogIn(true);
     let enternedUsername = usernameRef.current.value;
     let enternedpassword = passwordRef.current.value;
+    enternedpassword = md5(enternedpassword);
 
     if (isValid(enternedUsername) && isValid(enternedpassword)) {
       formIsValid = true;
@@ -45,38 +50,30 @@ function BasicForm(props) {
 
     // checkign the login credentials
     if (dataFetched) {
-      const isUserNamePresent = usersData.filter((user) => {
-        return user.username == enternedUsername;
-      });
-      enternedpassword = md5(enternedpassword);
-      const isPasswordPresent = usersData.filter((user) => {
-        return user.password == enternedpassword;
-      });
-     
-      if (isUserNamePresent[0]?.username && isPasswordPresent[0]?.password) {
 
-        
+      let LoggedInUser = usersData.filter((user)=>{
+        return user.username === enternedUsername && user.password === enternedpassword
+      })
+      LoggedInUser = LoggedInUser[0];
+      if (LoggedInUser) {
         dispatch(
           usersActions.getUsers({
             users: usersData || [],
-            isUsernamePresent: true,
             dataFetched: dataFetched,
-            isPasswordMatched: true,
-            user : isUserNamePresent,
+            user : LoggedInUser,
           })
         );
+        localStorage.setItem("loggedInUser", JSON.stringify(LoggedInUser))
       }
     
     }
-    // if (formIsValid) {
-    //   console.log("shit");
-    //   setSignUpLogin(false);
-    // }
   };
+  //////////////////// signup button handler //////////////////////
   const handleSignUp = () => {
     setIsSignUp(true);
     setIsLogIn(false)
   };
+
   const handleUsernameChange = (event) => {
     const username = event.target.value;
     if (isValid(username)) {
@@ -85,6 +82,7 @@ function BasicForm(props) {
       setChangeUsername(false);
     }
   };
+
   const handlePasswordChange = (event) => {
     const pass = event.target.value;
     if (isValid(pass)) {
@@ -93,6 +91,7 @@ function BasicForm(props) {
       setChangePassword(false);
     }
   };
+
   const handleDescribeChange = (event) => {
     const pass = event.target.value;
     if (isDescribeValid(pass)) {
@@ -102,6 +101,7 @@ function BasicForm(props) {
     }
   };
 
+  ///////////////// Signup handler new user addition ///////////////////////////////
   const handleSignUpData = (event) => {
     const enternedUsername = usernameRef.current.value;
     const enternedpassword = passwordRef.current.value;
@@ -135,10 +135,7 @@ function BasicForm(props) {
       );
       if (!isUserNamePresent) {
         props.sendUsersData(details);
-        // if(!props.loading){
-        //   window.location.reload();
-        //   console.log("shit")
-        // }
+  
         setIsSignUp(false);
       } else {
         alert("The username is already used !!!!");
@@ -146,18 +143,20 @@ function BasicForm(props) {
     }
   };
 
+
   return (
     <React.Fragment>
 
     {/* <Storage /> */}
    
     <Form onSubmit={handleFormSubmit} className={classes.form}>
-    {isLogIn && !isUserNamePresent && !isPasswordMatched && <p style={{color: 'red', fontSize:'1.5rem'}} >Username and Password doesn't match !</p>}
+    {/* {isLogIn && !isUserNamePresent && !isPasswordMatched && <p style={{color: 'red', fontSize:'1.5rem'}} >Username and Password doesn't match !</p>} */}
+    {isLogIn && !isUserLoggedIn && <p style={{color: 'red', fontSize:'1.5rem'}} >Username and Password doesn't match !</p>}
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Username</Form.Label>
         <Form.Control
-        className={`${isLogIn && !isUserNamePresent && !isPasswordMatched ? classes.invalidCredentials: '' }`}
+        className={`${isLogIn && !isUserLoggedIn ? classes.invalidCredentials: '' }`}
           onChange={handleUsernameChange}
           autoComplete="off"
           type="text"
@@ -171,7 +170,7 @@ function BasicForm(props) {
       <Form.Group className="mb-4" controlId="formBasicEmail">
         <Form.Label>Password</Form.Label>
         <Form.Control
-        className={`${isLogIn && !isUserNamePresent && !isPasswordMatched ? classes.invalidCredentials: '' }`}
+        className={`${isLogIn && !isUserLoggedIn ? classes.invalidCredentials: '' }`}
           type="password"
           placeholder="Password"
           ref={passwordRef}

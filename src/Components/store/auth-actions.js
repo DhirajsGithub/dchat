@@ -44,32 +44,32 @@ export const fetchUsersData = () => {
   };
 };
 
-// export const SendUserData = (userData)=>{
-//   console.log("send user data called 1")
-//   return async (dispatch) =>{
-//     const sendRequest = async () =>{
-//       console.log("sendUserData called")
-//       const response = await fetch(
-//         "https://dchat-74b80-default-rtdb.firebaseio.com/usersData.json",
-//         {
-//           method: "POST",
-//           body: JSON.stringify(userData),
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//         }
-//       );
-//       if(!response.ok){
-//         throw new Error("sending chat failed !!!");
-//       }
-//       try {
-//         await sendRequest();
-//       } catch (error) {
-//         console.log(error)
-//       }
-//     }
-//   }
-// }
+export const SendUserData = (userData)=>{
+  console.log("send user data called 1")
+  return async (dispatch) =>{
+    const sendRequest = async () =>{
+      console.log("sendUserData called")
+      const response = await fetch(
+        "https://dchat-74b80-default-rtdb.firebaseio.com/usersData.json",
+        {
+          method: "POST",
+          body: JSON.stringify(userData),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if(!response.ok){
+        throw new Error("sending chat failed !!!");
+      }
+      try {
+        await sendRequest();
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+}
 
 export const UpdateUserData = (id, update) => {
   console.log("update user dataa");

@@ -1,10 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
+
 const Message = (props) => {
-  const user = useSelector((state) => state.users.user[0]);
+
+  const localUser = localStorage.getItem("loggedInUser")
+  const storedUser = JSON.parse(localUser);
   const itIsMe = () => {
-    return user.username === props.username;
+    return storedUser.username === props.username;
   };
 
   const profileImg = (

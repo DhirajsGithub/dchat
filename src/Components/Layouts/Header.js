@@ -5,17 +5,18 @@ import logo from "./smallLogo.png";
 import { useSelector } from "react-redux";
 
 const Header = (props) => {
-
-  const isUserNamePresent = useSelector(
-    (state) => state.users.isUsernamePresent
-  );
-  const isPasswordMatched = useSelector(
-    (state) => state.users.isPasswordMatched
-  );
+  const localUser = localStorage.getItem("loggedInUser")
+  const storedUser = JSON.parse(localUser);
+  // const isUserLoggedIn = useSelector(
+  //   (state) => state.users.user
+  // );
+  // const isPasswordMatched = useSelector(
+  //   (state) => state.users.isPasswordMatched
+  // );
   return (
     <Navbar
       className={`${classes.header} ${
-        !isUserNamePresent && !isPasswordMatched ? classes.modalOverlay : ""
+        !storedUser ? classes.modalOverlay : ""
       }`}
       collapseOnSelect
       expand="lg"

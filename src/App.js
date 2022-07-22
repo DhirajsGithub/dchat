@@ -7,40 +7,51 @@ import { useDispatch, useSelector } from "react-redux";
 import Chat from "./Components/Chats/Chat";
 import Profile from "./Components/Layouts/Profile";
 import People from "./Components/Layouts/People";
+import Loading from "./Components/UI/Loading";
 
 function App() {
   const dispatch = useDispatch();
-  const isUserNamePresent = useSelector(
-    (state) => state.users.isUsernamePresent
+  const isUserLoggedIn = useSelector(
+    (state) => state.users.user
   );
-  const isPasswordMatched = useSelector(
-    (state) => state.users.isPasswordMatched
-  );
-  const userLogin = useSelector((state) => state.users.user);
-  console.log(userLogin);
+  const localUser = localStorage.getItem("loggedInUser")
+  const storedUser = JSON.parse(localUser);
+  console.log("local user is ", JSON.parse(localUser))
+
+
+
   const [loading, setLoading] = useState(false);
 
-  const [profile, setProfile] = useState(false);
-  const [home, setHome] = useState(true);
-  const [people, setPeople] = useState(false);
+  const [page, setPage] = useState({
+    home : true,
+    profile : false,
+    people : false,
+  })
 
   const handleNavItems = (res) => {
     console.log('nav item is ', res)
     if (res === "home") {
-      setHome(true);
-      setProfile(false);
-      setPeople(false);
+      setPage({
+        ...page,
+        home : true,
+        profile : false,
+        people : false
+      })
     }else if(res === "profile"){
-      setHome(false);
-      setProfile(true);
-      setPeople(false);
+      setPage({
+        ...page,
+        profile : true,
+        home : false,
+      })
     }else {
-      setHome(false);
-      setProfile(false);
-      setPeople(true);
+      setPage({
+        ...page,
+        profile : false,
+        home : false,
+        people : true
+      })
     }
   };
-  console.log("home is ", home)
 
   useEffect(() => {
     console.log("users fetched");
@@ -71,11 +82,11 @@ function App() {
   return (
     <Fragment>
       <Header handleNavItems={handleNavItems} />
-      {loading && <h1>Loading...</h1>}
-      {!isUserNamePresent && !isPasswordMatched && basicForm}
-      { isUserNamePresent && isPasswordMatched && profile && <Profile userLogin={userLogin} />}
-      {isUserNamePresent && isPasswordMatched && people && <People />}
-      {isUserNamePresent && isPasswordMatched && home && <Chat userLogin={userLogin} />}
+      {loading && <Loading/>}
+      {!storedUser && basicForm}
+      { storedUser&& page.profile && <Profile userLogin={storedUser} />}
+      {storedUser && page.people && <People />}
+      {storedUser && page.home && <Chat userLogin={storedUser} />}
     </Fragment>
   );
 }
