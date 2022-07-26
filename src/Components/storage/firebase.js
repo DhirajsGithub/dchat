@@ -1,7 +1,6 @@
 
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
-import { getDatabase } from "firebase/database"
 
 // stored to 210030010@iitdh.ac.in account
 const firebaseConfig = {
@@ -16,8 +15,6 @@ const firebaseConfig = {
 export default firebaseConfig;
 const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app)
-export const Firebasedatabase = getDatabase(app);
-
 
 
 

@@ -44,44 +44,45 @@ export const fetchUsersData = () => {
   };
 };
 
-export const SendUserData = (userData)=>{
-  console.log("send user data called 1")
-  return async (dispatch) =>{
-    const sendRequest = async () =>{
-      console.log("sendUserData called")
-      const response = await fetch(
-        "https://dchat-74b80-default-rtdb.firebaseio.com/usersData.json",
-        {
-          method: "POST",
-          body: JSON.stringify(userData),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if(!response.ok){
-        throw new Error("sending chat failed !!!");
-      }
-      try {
-        await sendRequest();
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  }
-}
+// export const SendUserData = (userData)=>{
+//   console.log("send user data called 1")
+//   return async (dispatch) =>{
+//     const sendRequest = async () =>{
+//       console.log("sendUserData called")
+//       const response = await fetch(
+//         "https://dchat-74b80-default-rtdb.firebaseio.com/usersData.json",
+//         {
+//           method: "POST",
+//           body: JSON.stringify(userData),
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//         }
+//       );
+//       if(!response.ok){
+//         throw new Error("sending chat failed !!!");
+//       }
+//       try {
+//         await sendRequest();
+//       } catch (error) {
+//         console.log(error)
+//       }
+//     }
+//   }
+// }
 
 export const UpdateUserData = (id, update) => {
   console.log("update user dataa");
   return async (dispatch) => {
+    console.log("inside return async")
     const updateData = async () => {
       console.log("first")
       const response = await fetch(
-        "https://dchat-74b80-default-rtdb.firebaseio.com/usersData.json/" + id,
+        "https://dchat-74b80-default-rtdb.firebaseio.com/usersData/" + id,
         {
-          method: "PUT",
+          method: "PATCH",
           body: JSON.stringify({
-            profile : update
+            Profile : update,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -92,12 +93,15 @@ export const UpdateUserData = (id, update) => {
         console.log("unable to update data")
         throw new Error ("unable to update data")
       }
-      try {
-        await updateData()
-        console.log("updated success")
-      } catch (error) {
-        
-      }
+     
     };
+    try {
+      await updateData()
+      console.log("updated success")
+    } catch (error) {
+      console.log("ksajfksdjfkajsdk")
+      console.log(error)
+    }
   };
+  console.log("the end")
 };

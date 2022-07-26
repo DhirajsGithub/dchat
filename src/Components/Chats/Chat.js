@@ -116,7 +116,7 @@ const Chat = (props) => {
                 <button
                   disabled={
                     sStatus.send === "Sending..." ||
-                    sStatus.receive === "Receiving..."
+                    sStatus.receive === "Receiving..." || msg.length === 0
                   }
                   type="submit"
                   className="btn btn-info"

@@ -7,11 +7,10 @@ import { usersActions } from "../store/auth-slice";
 import { storage } from "../storage/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-import { Firebasedatabase } from "../storage/firebase";
-import { update, set, get, child } from "firebase/database";
+import { UpdateUserData } from "../store/auth-actions"
 
-const db = Firebasedatabase;
-console.log(db);
+const localUser = localStorage.getItem("loggedInUser")
+const storedUser = JSON.parse(localUser);
 
 const Profile = (props) => {
   // const userCollectionRef = collection(Firebasedatabase, "usersData");
@@ -28,19 +27,8 @@ const Profile = (props) => {
   //   (state) => state.users.user
   // );
 
-  const AuthSlice = useSelector((state) => state.users);
-  console.log(AuthSlice);
-  const dispatch = useDispatch();
-  const fetchUser = useSelector((state) => state.users.user);
-
-
   const [imageUrl, setImageUrl] = useState("");
-  const user = useSelector((state) => state.users.user);
-  const itIsMe = () => {
-    return user.username === props.userLogin.username;
-  };
   const changeProfilePic = (event) => {
-    // updateUserProfile();
     const file = event.target.files[0];
     console.log(file);
 
@@ -50,6 +38,7 @@ const Profile = (props) => {
         getDownloadURL(imageRef)
           .then((url) => {
             setImageUrl(url);
+            UpdateUserData(props.userLogin.id, "profile_is_update")
           })
           .catch((err) => {
             console.log(err.message, "error");
@@ -77,7 +66,7 @@ const Profile = (props) => {
             </div>
 
             <div className="text-center mt-3">
-              {itIsMe() ? (
+              {storedUser ? (
                 <form
                   style={{
                     textAlign: "center",
@@ -86,20 +75,20 @@ const Profile = (props) => {
                   action=""
                 >
                   <input
-                    onChange={itIsMe() ? changeProfilePic : ""}
+                    onChange={storedUser ? changeProfilePic : ""}
                     id="files"
                     style={{ textAlign: "center" }}
                     title="f"
                     type="file"
                   />
-                </form>
+                </form> 
               ) : (
                 <span>Profile</span>
               )}
-              <h1 className="mt-2 mb-0">{user.username}</h1>
+              <h1 className="mt-2 mb-0">{props.userLogin.username}</h1>
 
               <div className="px-4 mt-1">
-                <p className={`classes.fonts`}>{user.describe}. </p>
+                <p className={`classes.fonts`}>{props.userLogin.username} </p>
               </div>
 
               <ul className={classes["social-list"]}>

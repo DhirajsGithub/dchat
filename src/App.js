@@ -16,7 +16,7 @@ function App() {
   );
   const localUser = localStorage.getItem("loggedInUser")
   const storedUser = JSON.parse(localUser);
-  console.log("local user is ", JSON.parse(localUser))
+  console.log("local user is ", storedUser)
 
 
 

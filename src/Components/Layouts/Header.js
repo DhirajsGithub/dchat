@@ -26,11 +26,17 @@ const Header = (props) => {
       <Container>
         <Navbar.Brand href="/" style={{ marginBottom: "-16px" }}>
           <Figure>
-            <Figure.Image width={50} height={50} alt="171x180" src={logo} />
+            <Figure.Image width={50} height={50} alt="171x180" src={logo} onClick={() => {
+                props.handleNavItems("home")
+
+              }} />
           </Figure>
         </Navbar.Brand>
 
-        <Navbar.Brand className={classes.heading} href="/">
+        <Navbar.Brand className={classes.heading} href="/" onClick={() => {
+                props.handleNavItems("home")
+
+              }}>
           D CHAT
         </Navbar.Brand>
 
@@ -38,16 +44,7 @@ const Header = (props) => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto"></Nav>
           <Nav>
-            <Nav.Link
-              onClick={() => {
-                props.handleNavItems("home")
-
-              }}
-              className={classes.navItem}
-              href="#Home"
-            >
-              Home
-            </Nav.Link>
+            
             <Nav.Link
               onClick={() => {
                 props.handleNavItems("people")
@@ -66,6 +63,16 @@ const Header = (props) => {
               href="#profile"
             >
               Profile
+            </Nav.Link>
+            <Nav.Link 
+              onClick={() => {
+                localStorage.removeItem("loggedInUser")
+
+              }}
+              className={classes.navItem}
+              href="/"
+            >
+              Logout
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
