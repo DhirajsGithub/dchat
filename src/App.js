@@ -42,6 +42,7 @@ function App() {
         ...page,
         profile : true,
         home : false,
+        people : false
       })
     }else {
       setPage({
@@ -54,7 +55,7 @@ function App() {
   };
 
   useEffect(() => {
-    console.log("users fetched");
+    // console.log("users fetched");
     dispatch(fetchUsersData());
   }, [dispatch, loading]);
 

@@ -1,4 +1,6 @@
 import { usersActions } from "./auth-slice";
+import { storage } from "../storage/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const fetchUsersData = () => {
   let dataFetching = false;
@@ -44,6 +46,9 @@ export const fetchUsersData = () => {
   };
 };
 
+
+
+
 // export const SendUserData = (userData)=>{
 //   console.log("send user data called 1")
 //   return async (dispatch) =>{
@@ -71,37 +76,39 @@ export const fetchUsersData = () => {
 //   }
 // }
 
-export const UpdateUserData = (id, update) => {
-  console.log("update user dataa");
-  return async (dispatch) => {
-    console.log("inside return async")
-    const updateData = async () => {
-      console.log("first")
-      const response = await fetch(
-        "https://dchat-74b80-default-rtdb.firebaseio.com/usersData/" + id,
-        {
-          method: "PATCH",
-          body: JSON.stringify({
-            Profile : update,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if(!response.ok){
-        console.log("unable to update data")
-        throw new Error ("unable to update data")
-      }
+// export const UpdateUserData = (id, update) => {
+//   console.log("update user dataa");
+//   return async (dispatch) => {
+//     console.log("inside return async")
+//     const updateData = async () => {
+//       console.log("first")
+//       const response = await fetch(
+//         "https://dchat-74b80-default-rtdb.firebaseio.com/usersData/" + id,
+//         {
+//           method: "PATCH",
+//           body: JSON.stringify({
+//             Profile : update,
+//           }),
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//         }
+//       );
+//       if(!response.ok){
+//         console.log("unable to update data")
+//         throw new Error ("unable to update data")
+//       }
      
-    };
-    try {
-      await updateData()
-      console.log("updated success")
-    } catch (error) {
-      console.log("ksajfksdjfkajsdk")
-      console.log(error)
-    }
-  };
-  console.log("the end")
-};
+//     };
+//     try {
+//       await updateData()
+//       console.log("updated success")
+//     } catch (error) {
+//       console.log("ksajfksdjfkajsdk")
+//       console.log(error)
+//     }
+//   };
+//   console.log("the end")
+// };
+
+

@@ -15,7 +15,7 @@ const Message = (props) => {
       {" "}
       <img
         id="profile-photo"
-        src="http://nicesnippets.com/demo/man01.png"
+        src={props.profile}
         className="rounded-circle"
       />{" "}
     </div>

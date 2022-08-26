@@ -19,6 +19,9 @@ body{
   html{
     font-size: 50%;
   }
+  .chat-messages{
+    max-height: 55vh !important;
+  }
 }
 
 
@@ -104,7 +107,7 @@ body{
    display: flex;
   }
  
-  @media only screen and (max-width: 745px) {
+  @media (max-width: 745px) {
     .chat-main{
       max-width: 95%;
       
@@ -121,6 +124,7 @@ body{
       font-size: 2rem;
       margin-left: -1rem;
     }
+
     /* .comments .user-img img{
       width: 4rem ;
       height: 4rem ;

@@ -4,8 +4,6 @@ const initialState = {
     users : [{'name': 'shit'}],
     dataFetched : false,
     user: {},
-    profile : '',
-    sendUserData : null,
 }
 
 const userSlice = createSlice({

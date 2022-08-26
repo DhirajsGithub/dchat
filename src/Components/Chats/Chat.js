@@ -38,6 +38,7 @@ const Chat = (props) => {
 
     dispatch(
       sendChatsData({
+        profile : props.userLogin.profile,
         message: msg,
         username: props.userLogin.username,
         date: calDate(),
@@ -48,6 +49,7 @@ const Chat = (props) => {
       message: msg,
       username: props.userLogin.username,
       date: calDate(),
+      profile: props.userLogin.profile
     });
     setMsg("");
   };
@@ -81,6 +83,7 @@ const Chat = (props) => {
                     username={chat.username}
                     time={chat.date}
                     message={chat.message}
+                    profile = {chat.profile}
                   />
                 );
               })}
@@ -91,6 +94,7 @@ const Chat = (props) => {
                     username={chat.username}
                     time={chat.date}
                     message={chat.message}
+                    profile={chat.profile}
                   />
                 );
               })}
