@@ -6,7 +6,8 @@ const localUser = localStorage.getItem("loggedInUser")
 const storedUser = JSON.parse(localUser);
 
 const Profile = (props) => {
-  console.log(props.profile)
+  const describe = props.userLogin.describe.length <600 ? props.userLogin.describe : props.userLogin.describe.slice(0, 600)
+  // console.log(props.profile)
 
   return (
     <div className="container mt-5">
@@ -15,7 +16,7 @@ const Profile = (props) => {
           <div className={`${classes.card} p-3 py-4`}>
             <div className="text-center">
               <img
-                src={ props.userLogin.profile}
+                src={props.userLogin.profile}
                 width="100"
                 height="100"
                 className="rounded-circle"
@@ -32,13 +33,11 @@ const Profile = (props) => {
                   action=""
                 >
                 </form> 
-              ) : (
-                <span>Profile</span>
-              )}
+              ) : ""}
               <h1 className="mt-4 mb-0">{props.userLogin.username}</h1>
 
-              <div className="px-4 mt-2">
-                <p className={`classes.fonts`}>{props.userLogin.username} </p>
+              <div className={classes.overFlowShit}>
+                <span>{describe} </span>
               </div>
             </div>
           </div>
