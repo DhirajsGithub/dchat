@@ -14,16 +14,14 @@ body{
  
 }
 
-
 @media only screen and (max-width: 600px)   {
   html{
     font-size: 50%;
   }
   .chat-messages{
-    max-height: 55vh !important;
+    max-height: 65vh !important;
   }
 }
-
 
 /* chating  */
 .chat-main{
@@ -162,3 +160,33 @@ body{
   margin-left: 5px;
   }
   } */
+
+
+.footer{
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* padding-bottom: 1rem; */
+  padding: 3px;
+  height: 50px;
+  /* border: 2px solid red; */
+  position: fixed; 
+  bottom: 0; 
+  width: 100%;
+  background-color: #343a3f;
+}
+.footer .link2 i{
+  color: rgba(255, 255, 255, 0.794);
+  transition-duration: 0.3 ;
+  /* margin: 0 1rem; */
+}
+.footer .link2 i:hover{
+  color: white;
+  font-size: 4.5rem;
+}
+.footer span{
+  font-size:2rem ;
+  padding-right: 1rem;
+  color: rgba(255, 255, 255, 0.625);
+}

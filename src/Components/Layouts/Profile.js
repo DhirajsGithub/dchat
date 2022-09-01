@@ -35,14 +35,15 @@ const Profile = (props) => {
                 </form> 
               ) : ""}
               <h1 className="mt-4 mb-0">{props.userLogin.username}</h1>
-
-              <div className={classes.overFlowShit}>
-                <span>{describe} </span>
-              </div>
+              <p>{describe}</p>
             </div>
+            
           </div>
+         
         </div>
+       
       </div>
+      
     </div>
   );
 };

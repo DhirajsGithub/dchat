@@ -85,5 +85,7 @@
 }
 
 .overFlowShit p{
-
+    /* max-width: 80% !important; */
+    box-sizing: border-box;
+    overflow: scroll;
 }
