@@ -48,6 +48,7 @@ const People = () => {
         {users.map((user) => {
           return (
             <Person
+              key = {user.username}
               handlePopUpUser={handlePopUpUser}
               profile={user.profile}
               username={user.username}
