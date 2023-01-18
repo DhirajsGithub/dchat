@@ -28,7 +28,7 @@ io.on("connection", (socket)=>{
 
 // don't listen to app as app.listen
 
-const port = 5500;
+const port = 5500 || process.env.PORT;
 server.listen(port, ()=>{
     console.log("server is listening at port "+ String(port)+"...");
 })
