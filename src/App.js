@@ -81,14 +81,16 @@ function App() {
       {storedUser && page.profile && <Profile userLogin={storedUser} />}
       {storedUser && page.people && <People />}
       {storedUser && page.home && <Chat userLogin={storedUser} />}
-      <footer className="footer">
-        <span>@_d.codes_</span>
-        <div className="link2">
-          <a href="https://www.instagram.com/_d.codes_/" target="_blank">
-            <i className="fab fa-instagram fa-4x"></i>
-          </a>
-        </div>
-      </footer>
+      {storedUser && (
+        <footer className="footer">
+          <span>@_d.codes_</span>
+          <div className="link2">
+            <a href="https://www.instagram.com/_d.codes_/" target="_blank">
+              <i className="fab fa-instagram fa-4x"></i>
+            </a>
+          </div>
+        </footer>
+      )}
     </Fragment>
   );
 }
