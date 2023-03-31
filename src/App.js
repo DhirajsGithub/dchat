@@ -11,46 +11,40 @@ import Loading from "./Components/UI/Loading";
 
 function App() {
   const dispatch = useDispatch();
-  const isUserLoggedIn = useSelector(
-    (state) => state.users.user
-  );
-  const localUser = localStorage.getItem("loggedInUser")
+  const isUserLoggedIn = useSelector((state) => state.users.user);
+  const localUser = localStorage.getItem("loggedInUser");
   const storedUser = JSON.parse(localUser);
-  console.log("local user is ", storedUser)
-
-
 
   const [loading, setLoading] = useState(false);
 
   const [page, setPage] = useState({
-    home : true,
-    profile : false,
-    people : false,
-  })
+    home: true,
+    profile: false,
+    people: false,
+  });
 
   const handleNavItems = (res) => {
-    console.log('nav item is ', res)
     if (res === "home") {
       setPage({
         ...page,
-        home : true,
-        profile : false,
-        people : false
-      })
-    }else if(res === "profile"){
+        home: true,
+        profile: false,
+        people: false,
+      });
+    } else if (res === "profile") {
       setPage({
         ...page,
-        profile : true,
-        home : false,
-        people : false
-      })
-    }else {
+        profile: true,
+        home: false,
+        people: false,
+      });
+    } else {
       setPage({
         ...page,
-        profile : false,
-        home : false,
-        people : true
-      })
+        profile: false,
+        home: false,
+        people: true,
+      });
     }
   };
 
@@ -60,7 +54,6 @@ function App() {
   }, [dispatch, loading]);
 
   async function addUsersData(details) {
-    console.log("addUserData");
     setLoading(true);
     const response = await fetch(
       "https://dchat-74b80-default-rtdb.firebaseio.com/usersData.json",
@@ -83,14 +76,18 @@ function App() {
   return (
     <Fragment>
       <Header handleNavItems={handleNavItems} />
-      {loading && <Loading/>}
+      {loading && <Loading />}
       {!storedUser && basicForm}
-      { storedUser&& page.profile && <Profile userLogin={storedUser} />}
+      {storedUser && page.profile && <Profile userLogin={storedUser} />}
       {storedUser && page.people && <People />}
       {storedUser && page.home && <Chat userLogin={storedUser} />}
       <footer className="footer">
-      <span>@_d.codes_</span>
-      <div class="link2"><a href="https://www.instagram.com/_d.codes_/" target="_blank"><i class="fab fa-instagram fa-4x"></i></a></div>
+        <span>@_d.codes_</span>
+        <div className="link2">
+          <a href="https://www.instagram.com/_d.codes_/" target="_blank">
+            <i className="fab fa-instagram fa-4x"></i>
+          </a>
+        </div>
       </footer>
     </Fragment>
   );

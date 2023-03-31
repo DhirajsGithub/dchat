@@ -7,13 +7,13 @@ import { fetchChatsData } from "../store/chat-actions";
 // npm install socket.io-client
 import { io, Socket } from "socket.io-client";
 import Loading from "../UI/Loading";
-const socket = io.connect("http://localhost:5500");
+const socket = io.connect("https://d-chat.onrender.com/");
 
 const Chat = (props) => {
   const dataFetched = useSelector((state) => state.dataFetched);
 
   const sStatus = useSelector((state) => state.chats.notification);
-  const showChat = false
+  const showChat = false;
 
   const chatsData = useSelector((state) => state.chats.chats);
 
@@ -38,7 +38,7 @@ const Chat = (props) => {
 
     dispatch(
       sendChatsData({
-        profile : props.userLogin.profile,
+        profile: props.userLogin.profile,
         message: msg,
         username: props.userLogin.username,
         date: calDate(),
@@ -49,7 +49,7 @@ const Chat = (props) => {
       message: msg,
       username: props.userLogin.username,
       date: calDate(),
-      profile: props.userLogin.profile
+      profile: props.userLogin.profile,
     });
     setMsg("");
   };
@@ -72,72 +72,75 @@ const Chat = (props) => {
   return (
     <div className="container chat-main">
       <div className="row mt-5">
-      {sStatus.receive === "Receiving..." && <Loading />}
-        {<div className="comments-main pt-4 rounded">
-          <div className="chat-messages">
-            <ul className="p-0">
-              {chatsData.map((chat) => {
-                return (
-                  <Message
-                    key={chat.id}
-                    username={chat.username}
-                    time={chat.date}
-                    message={chat.message}
-                    profile = {chat.profile}
-                  />
-                );
-              })}
-              {chatArray.map((chat) => {
-                return (
-                  <Message
-                    key={chat.id}
-                    username={chat.username}
-                    time={chat.date}
-                    message={chat.message}
-                    profile={chat.profile}
-                  />
-                );
-              })}
-              <div ref={scrollDown}></div>
-            </ul>
-          </div>
-          <hr />
-          <div className="input-send comment-box-main p-3 mt-3 rounded mb-3">
-            <form onSubmit={handleOnSubmit} action="">
-              <div
-                id="input"
-                className="col-md-9 col-sm-9 col-9 pr-0 mr-3 comment-box"
-              >
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="message ...."
-                  value={msg}
-                  onChange={handleOnChange}
-                />
-              </div>
-              <div className="col-md-3 col-sm-2 col-2 pl-0 text-center send-btn">
-                <button
-                  disabled={
-                    sStatus.send === "Sending..." ||
-                    sStatus.receive === "Receiving..." || msg.length === 0
-                  }
-                  type="submit"
-                  className="btn btn-info"
+        {sStatus.receive === "Receiving..." && <Loading />}
+        {
+          <div className="comments-main pt-4 rounded">
+            <div className="chat-messages">
+              <ul className="p-0">
+                {chatsData.map((chat) => {
+                  return (
+                    <Message
+                      key={chat.id}
+                      username={chat.username}
+                      time={chat.date}
+                      message={chat.message}
+                      profile={chat.profile}
+                    />
+                  );
+                })}
+                {chatArray.map((chat) => {
+                  return (
+                    <Message
+                      key={chat.id + String(Math.random())}
+                      username={chat.username}
+                      time={chat.date}
+                      message={chat.message}
+                      profile={chat.profile}
+                    />
+                  );
+                })}
+                <div ref={scrollDown}></div>
+              </ul>
+            </div>
+            <hr />
+            <div className="input-send comment-box-main p-3 mt-3 rounded mb-3">
+              <form onSubmit={handleOnSubmit} action="">
+                <div
+                  id="input"
+                  className="col-md-9 col-sm-9 col-9 pr-0 mr-3 comment-box"
                 >
-                  {sStatus.send === "Sending..." ? (
-                    sStatus.send
-                  ) : (
-                    <span>
-                      {" "}
-                      Send <i className="fa-solid fa-paper-plane"></i>
-                    </span>
-                  )}
-                </button>
-              </div>
-            </form>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="message ...."
+                    value={msg}
+                    onChange={handleOnChange}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-2 col-2 pl-0 text-center send-btn">
+                  <button
+                    disabled={
+                      sStatus.send === "Sending..." ||
+                      sStatus.receive === "Receiving..." ||
+                      msg.length === 0
+                    }
+                    type="submit"
+                    className="btn btn-info"
+                  >
+                    {sStatus.send === "Sending..." ? (
+                      sStatus.send
+                    ) : (
+                      <span>
+                        {" "}
+                        Send <i className="fa-solid fa-paper-plane"></i>
+                      </span>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>}
+        }
         {/* </div> */}
       </div>
     </div>
