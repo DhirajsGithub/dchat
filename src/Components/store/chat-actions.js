@@ -1,7 +1,6 @@
 import { chatsActions } from "./chat-slice";
 
 export const fetchChatsData = () => {
-
   return async (dispatch) => {
     dispatch(
       chatsActions.showNotification({
@@ -11,7 +10,7 @@ export const fetchChatsData = () => {
     );
     const fetchData = async () => {
       const response = await fetch(
-        "https://dchat-74b80-default-rtdb.firebaseio.com/chatsData.json"
+        "https://dchat-deployed-default-rtdb.firebaseio.com/chatsData.json"
       );
 
       if (!response.ok) {
@@ -24,7 +23,6 @@ export const fetchChatsData = () => {
     };
 
     try {
-      
       const chatsData = await fetchData();
       dispatch(
         chatsActions.showNotification({
@@ -33,7 +31,7 @@ export const fetchChatsData = () => {
         })
       );
 
-      let chatsArray = []
+      let chatsArray = [];
       for (let key in chatsData) {
         chatsArray.push({
           id: key,
@@ -43,15 +41,13 @@ export const fetchChatsData = () => {
           message: chatsData[key].message,
         });
       }
-     
-   
+
       dispatch(
         chatsActions.addChatsData({
           chats: chatsArray,
         })
       );
     } catch (error) {
-
       dispatch(
         chatsActions.showNotification({
           // send: "",
@@ -63,7 +59,6 @@ export const fetchChatsData = () => {
 };
 
 export const sendChatsData = (chatsData) => {
-
   return async (dispatch) => {
     // dipatch initail action of sending msg
     dispatch(

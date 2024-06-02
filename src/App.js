@@ -56,7 +56,7 @@ function App() {
   async function addUsersData(details) {
     setLoading(true);
     const response = await fetch(
-      "https://dchat-74b80-default-rtdb.firebaseio.com/usersData.json",
+      "https://dchat-deployed-default-rtdb.firebaseio.com/usersData.json",
       {
         method: "POST",
         body: JSON.stringify(details),

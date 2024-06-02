@@ -7,7 +7,7 @@ export const fetchUsersData = () => {
   return async (dispatch) => {
     const fetchUsers = async () => {
       const response = await fetch(
-        "https://dchat-74b80-default-rtdb.firebaseio.com/usersData.json"
+        "https://dchat-deployed-default-rtdb.firebaseio.com/usersData.json"
       );
 
       if (!response.ok) {
@@ -45,9 +45,6 @@ export const fetchUsersData = () => {
     }
   };
 };
-
-
-
 
 // export const SendUserData = (userData)=>{
 //   console.log("send user data called 1")
@@ -98,7 +95,7 @@ export const fetchUsersData = () => {
 //         console.log("unable to update data")
 //         throw new Error ("unable to update data")
 //       }
-     
+
 //     };
 //     try {
 //       await updateData()
@@ -110,5 +107,3 @@ export const fetchUsersData = () => {
 //   };
 //   console.log("the end")
 // };
-
-
