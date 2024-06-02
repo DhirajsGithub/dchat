@@ -35,7 +35,7 @@ function BasicForm(props) {
   const [changeDescribe, setChangeDescribe] = useState(false);
 
   const isValid = (value) => value.trim().length > 2;
-  const isDescribeValid = (value) => value.trim().length >= 0;
+  const isDescribeValid = (value) => true;
 
   let formIsValid = false;
 
