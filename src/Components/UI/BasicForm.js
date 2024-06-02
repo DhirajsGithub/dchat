@@ -22,7 +22,9 @@ function BasicForm(props) {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLogIn, setIsLogIn] = useState(false);
 
-  const [profileImg, setProfileImg] = useState("https://i.imgur.com/bDLhJiP.jpg");
+  const [profileImg, setProfileImg] = useState(
+    "https://i.imgur.com/bDLhJiP.jpg"
+  );
   const [profileLoading, setProfileLoading] = useState(false);
 
   const usernameRef = useRef();
@@ -32,9 +34,8 @@ function BasicForm(props) {
   const [changePassword, setChangePassword] = useState(false);
   const [changeDescribe, setChangeDescribe] = useState(false);
 
-
-  const isValid = (value) => value.trim().length > 5;
-  const isDescribeValid = (value) => value.trim().length > 30;
+  const isValid = (value) => value.trim().length > 2;
+  const isDescribeValid = (value) => value.trim().length >= 0;
 
   let formIsValid = false;
 
@@ -167,8 +168,6 @@ function BasicForm(props) {
         console.log(err.message);
         setProfileLoading(false);
       });
-
-    
   };
 
   return (
@@ -295,7 +294,7 @@ function BasicForm(props) {
               onClick={handleSignUpData}
               variant="info"
             >
-              {profileLoading ? "Loading..." :  "SignUp"}
+              {profileLoading ? "Loading..." : "SignUp"}
             </Button>
           )}
         </div>
